@@ -66,7 +66,7 @@ class LSManger{
            // let fileNameExt =
            // let image = fileImageData
            // var newfileName = filePath?.appending(".png")
-            saveImageInDirectory(fileName:fileNameData!, image: imgData)
+            saveImageInDirectory(fileName: fileNameData!, imageData: imgData, fileEtx: "png")
             print("save image")
            // self.scaleImage(image: image!)
         } else {
@@ -147,26 +147,20 @@ class LSManger{
         return retStr!
     }
     
-    public func saveImageInDirectory(fileName: String, image: NSImage) {
-        let newfileName = fileName.appending(".png")
-        print("newfilename:\(String(describing: newfileName))")
-
+    public func saveImageInDirectory(fileName: String, imageData: NSImage, fileEtx: String) {
        // let fileURL = documentsUrl.appendingPathComponent(newfileName)
-        let fileURL = URL(fileURLWithPath: (filePath?.appending(".png"))!)
+        let fileURL = URL(fileURLWithPath: (filePath?.appending(fileEtx))!)
 
         print("fileurl:\(fileURL)")
 
            // let imageData = image!.pngData()! as NSData
-            if let imageData = image.pngData {
+            if let imageData = imageData.pngData {
                 try? imageData.write(to: fileURL, options: .atomic)
-                
-              //  print(imageData)
-              //  return fileURL
-               // print(fileURL)
             }
            // return nil
         }
 }
+
 extension NSImage {
     var pngData: Data? {
         guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation)
