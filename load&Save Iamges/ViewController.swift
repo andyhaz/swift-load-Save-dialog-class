@@ -66,7 +66,7 @@ class LSManger{
            // let fileNameExt =
            // let image = fileImageData
            // var newfileName = filePath?.appending(".png")
-            saveImageInDocumentDirectory(fileName:fileNameData!, image: imgData)
+            saveImageInDirectory(fileName:fileNameData!, image: imgData)
             print("save image")
            // self.scaleImage(image: image!)
         } else {
@@ -140,12 +140,18 @@ class LSManger{
             }
     }
     
-    public func saveImageInDocumentDirectory(fileName: String, image: NSImage) {
+    func fileUrl()->String {
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
+        print("documentURL:\(documentsUrl)")
+        let retStr = try? String(contentsOf: documentsUrl)
+        return retStr!
+    }
+    
+    public func saveImageInDirectory(fileName: String, image: NSImage) {
         let newfileName = fileName.appending(".png")
         print("newfilename:\(String(describing: newfileName))")
         
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
-        print("documentURL:\(documentsUrl)")
+
         
        // let fileURL = documentsUrl.appendingPathComponent(newfileName)
         let fileURL = URL(fileURLWithPath: (filePath?.appending(".png"))!)
