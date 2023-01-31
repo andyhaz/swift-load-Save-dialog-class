@@ -140,7 +140,7 @@ class LSManger{
             }
     }
     
-    func fileUrl()->String {
+    func fileUrlToString()->String {
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
         print("documentURL:\(documentsUrl)")
         let retStr = try? String(contentsOf: documentsUrl)
@@ -150,9 +150,7 @@ class LSManger{
     public func saveImageInDirectory(fileName: String, image: NSImage) {
         let newfileName = fileName.appending(".png")
         print("newfilename:\(String(describing: newfileName))")
-        
 
-        
        // let fileURL = documentsUrl.appendingPathComponent(newfileName)
         let fileURL = URL(fileURLWithPath: (filePath?.appending(".png"))!)
 
