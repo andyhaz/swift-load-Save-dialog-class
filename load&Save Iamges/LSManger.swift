@@ -70,11 +70,6 @@ class LSManger{
                 // User clicked on "Cancel"
                 return
             }
-     /*let chosenFile = dialog.url
-        if chosenFile != nil {
-          //  let image = NSImage(contentsOf: chosenFile!)
-           // self.scaleImage(image: image!)
-        }*/
     }//
     
     func loadDialog(titleBar:String){
@@ -115,6 +110,32 @@ class LSManger{
             }
            // return nil
         }
+    
+    public func saveTextInDirectory(fileName: String, textData: String, fileEtx: String) {
+       // let fileURL = documentsUrl.appendingPathComponent(newfileName)
+        let fileURL = URL(fileURLWithPath: (filePath?.appending(fileEtx))!)
+
+        print("fileurl:\(fileURL)")
+
+        do {
+            try textData.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+        }
+        
+    }
+    
+    public func loadTextInDirectory(fileName:String)->String{
+        var textData:String = ""
+        
+        do{
+            textData = try String(contentsOfFile:fileName, encoding: .utf8)
+        } catch {
+            
+        }
+        return textData
+    }
+    
 }
 
 extension NSImage {
