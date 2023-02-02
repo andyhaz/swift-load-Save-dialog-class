@@ -25,10 +25,11 @@ class ViewController: NSViewController {
     
     @IBAction func loadAction(_ sender: Any) {
         let lsm = LSManger()
-        lsm.fileLoadImage()
-        myImageData = lsm.fileImageData!
-        print(lsm.filePath as Any)
-        print("loadAction: \(String(describing: lsm.fileImageData))")
+        lsm.fileLoadText()
+       // lsm.fileLoadImage()
+      //  myImageData = lsm.fileImageData!
+        //print(lsm.filePath as Any)
+       // print("loadAction: \(String(describing: lsm.fileImageData))")
     }
     
     @IBAction func saveAction(_ sender: Any) {
