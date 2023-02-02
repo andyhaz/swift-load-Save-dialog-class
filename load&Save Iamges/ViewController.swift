@@ -33,7 +33,8 @@ class ViewController: NSViewController {
     
     @IBAction func saveAction(_ sender: Any) {
         let lsm = LSManger()
-        lsm.fileSaveImage(imgData: myImageData!)
+      //  lsm.fileSaveImage(imgData: myImageData!)
+        lsm.fileSaveText(textData: "here some text:hello world")
         print(lsm.filePath as Any)
         print("save\(myImage)")
    // myurl:url?

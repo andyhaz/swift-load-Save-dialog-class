@@ -37,8 +37,9 @@ class LSManger{
         print("load image:\(String(describing: fileImageData))")
     }
     
-    func fileSaveText(){
+    func fileSaveText(textData:String){
         saveDialog(titleBar: "save text")
+        saveTextInDirectory(fileName: fileNameData!, textData: textData, fileEtx: ".txt")
     }
     
     func loadTextFile(){
