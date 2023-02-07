@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="myTableView" id="Aot-Ht-5zD" customClass="myTableView" customModule="rabbit" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HQF-7y-Dvr">
+                    <rect key="frame" x="18" y="16" width="65" height="18"/>
+                    <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wWQ-Vb-HxJ">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="checkButton:" target="Aot-Ht-5zD" id="NQF-HH-XFk"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="HQF-7y-Dvr" firstAttribute="leading" secondItem="Aot-Ht-5zD" secondAttribute="leading" constant="20" symbolic="YES" id="Sbq-60-BeR"/>
+                <constraint firstAttribute="trailing" secondItem="HQF-7y-Dvr" secondAttribute="trailing" constant="117" id="haQ-V3-f0t"/>
+                <constraint firstAttribute="bottom" secondItem="HQF-7y-Dvr" secondAttribute="bottom" constant="17" id="u2Y-G0-Ej3"/>
+                <constraint firstItem="HQF-7y-Dvr" firstAttribute="top" secondItem="Aot-Ht-5zD" secondAttribute="top" constant="17" id="zrv-wx-FBT"/>
+            </constraints>
+            <connections>
+                <outlet property="checkOutlet" destination="HQF-7y-Dvr" id="7nY-eM-E7F"/>
+            </connections>
+            <point key="canvasLocation" x="-6" y="-53"/>
+        </customView>
+    </objects>
+</document>

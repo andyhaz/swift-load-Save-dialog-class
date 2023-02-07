@@ -14,6 +14,9 @@
 		97DAAD722949453A00E51AD5 /* rabbitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAAD712949453A00E51AD5 /* rabbitTests.swift */; };
 		97DAAD7C2949453A00E51AD5 /* rabbitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAAD7B2949453A00E51AD5 /* rabbitUITests.swift */; };
 		97DAAD7E2949453A00E51AD5 /* rabbitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAAD7D2949453A00E51AD5 /* rabbitUITestsLaunchTests.swift */; };
+		97DAAD8B2949455C00E51AD5 /* MyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAAD8A2949455C00E51AD5 /* MyView.swift */; };
+		97DE73B3295CD6AE00A558F3 /* myTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DE73B2295CD6AE00A558F3 /* myTableView.swift */; };
+		97E013712960C2830032216A /* myTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97E013702960C2830032216A /* myTableView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		97DAAD772949453A00E51AD5 /* rabbitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rabbitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97DAAD7B2949453A00E51AD5 /* rabbitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabbitUITests.swift; sourceTree = "<group>"; };
 		97DAAD7D2949453A00E51AD5 /* rabbitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rabbitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		97DAAD8A2949455C00E51AD5 /* MyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyView.swift; sourceTree = "<group>"; };
+		97DE73B2295CD6AE00A558F3 /* myTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myTableView.swift; sourceTree = "<group>"; };
+		97E013702960C2830032216A /* myTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = myTableView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,10 +101,11 @@
 		97DAAD5E2949453900E51AD5 /* rabbit */ = {
 			isa = PBXGroup;
 			children = (
+				97E013E729786D200032216A /* MVP */,
 				97DAAD5F2949453900E51AD5 /* AppDelegate.swift */,
-				97DAAD612949453900E51AD5 /* ViewController.swift */,
-				97DAAD632949453A00E51AD5 /* Assets.xcassets */,
+				97E013702960C2830032216A /* myTableView.xib */,
 				97DAAD652949453A00E51AD5 /* Main.storyboard */,
+				97DAAD632949453A00E51AD5 /* Assets.xcassets */,
 				97DAAD682949453A00E51AD5 /* rabbit.entitlements */,
 			);
 			path = rabbit;
@@ -119,6 +126,40 @@
 				97DAAD7D2949453A00E51AD5 /* rabbitUITestsLaunchTests.swift */,
 			);
 			path = rabbitUITests;
+			sourceTree = "<group>";
+		};
+		97E013AB297730CB0032216A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				97DAAD612949453900E51AD5 /* ViewController.swift */,
+				97DAAD8A2949455C00E51AD5 /* MyView.swift */,
+				97DE73B2295CD6AE00A558F3 /* myTableView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		97E013AC297730D50032216A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		97E013AF29773DFE0032216A /* modle */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = modle;
+			sourceTree = "<group>";
+		};
+		97E013E729786D200032216A /* MVP */ = {
+			isa = PBXGroup;
+			children = (
+				97E013AB297730CB0032216A /* view */,
+				97E013AC297730D50032216A /* Presenter */,
+				97E013AF29773DFE0032216A /* modle */,
+			);
+			path = MVP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				97DAAD642949453A00E51AD5 /* Assets.xcassets in Resources */,
+				97E013712960C2830032216A /* myTableView.xib in Resources */,
 				97DAAD672949453A00E51AD5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +293,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97DAAD8B2949455C00E51AD5 /* MyView.swift in Sources */,
+				97DE73B3295CD6AE00A558F3 /* myTableView.swift in Sources */,
 				97DAAD622949453900E51AD5 /* ViewController.swift in Sources */,
 				97DAAD602949453900E51AD5 /* AppDelegate.swift in Sources */,
 			);
@@ -419,12 +463,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = rabbit/rabbit.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7QPZTLEJ7L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -446,12 +492,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = rabbit/rabbit.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7QPZTLEJ7L;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
