@@ -44,9 +44,9 @@ class LSManger{
     
     func fileLoadText(){
         loadDialog(titleBar: "Load text")
-        let txt:String
-        txt = loadTextInDirectory(fileName:filePath!)
-        print("text:\(txt)")
+       // let txt:String
+        fileTextData = loadTextInDirectory(fileName:filePath!)
+       // print("text:\(txt)")
     }
     
     func fileSaveData(){

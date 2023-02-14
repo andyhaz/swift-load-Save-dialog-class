@@ -11,23 +11,38 @@ class ViewController: NSViewController {
     var myImage = NSImage()
 
     //
-    @IBOutlet weak var imageWell: NSImageView!
 
-    @IBOutlet weak var myView: NSView!
+    @IBOutlet weak var myView: myView!
+    
+    @IBOutlet weak var textOutlet: NSTextField!
     
     var myImageData:NSImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        textOutlet.stringValue = " hello"
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func loadTextAction(_ sender: Any) {
+        let lsm = LSManger()
+        lsm.fileLoadText()
+        textOutlet.stringValue = String(lsm.fileTextData!)
+        
+    }
+    
+    @IBAction func saveTextAction(_ sender: Any) {
+        let lsm = LSManger()
+        let txt:String = textOutlet.stringValue
+        lsm.fileSaveText(textData:txt)
     }
     
     @IBAction func loadAction(_ sender: Any) {
         let lsm = LSManger()
-        lsm.fileLoadText()
-       // lsm.fileLoadImage()
-      //  myImageData = lsm.fileImageData!
+ 
+        lsm.fileLoadImage()
+        myView.myImage =  lsm.fileImageData!
+        myView.displayImage()
         //print(lsm.filePath as Any)
        // print("loadAction: \(String(describing: lsm.fileImageData))")
     }
@@ -35,7 +50,6 @@ class ViewController: NSViewController {
     @IBAction func saveAction(_ sender: Any) {
         let lsm = LSManger()
       //  lsm.fileSaveImage(imgData: myImageData!)
-        lsm.fileSaveText(textData: "here some text:hello world")
         print(lsm.filePath as Any)
         print("save\(myImage)")
    // myurl:url?

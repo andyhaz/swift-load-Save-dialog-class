@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		975179D52989D1FB00545643 /* LSManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975179D42989D1FB00545643 /* LSManger.swift */; };
+		975B3270299B387F00C56AE0 /* myView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975B326F299B387F00C56AE0 /* myView.swift */; };
 		97E013BD29775C340032216A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E013BC29775C340032216A /* AppDelegate.swift */; };
 		97E013BF29775C340032216A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E013BE29775C340032216A /* ViewController.swift */; };
 		97E013C129775C360032216A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97E013C029775C360032216A /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		975179D42989D1FB00545643 /* LSManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSManger.swift; sourceTree = "<group>"; };
+		975B326F299B387F00C56AE0 /* myView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myView.swift; sourceTree = "<group>"; };
 		97E013B929775C340032216A /* load&Save Iamges.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "load&Save Iamges.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		97E013BC29775C340032216A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97E013BE29775C340032216A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				97E013BC29775C340032216A /* AppDelegate.swift */,
 				97E013BE29775C340032216A /* ViewController.swift */,
 				975179D42989D1FB00545643 /* LSManger.swift */,
+				975B326F299B387F00C56AE0 /* myView.swift */,
 				97E013C029775C360032216A /* Assets.xcassets */,
 				97E013C229775C360032216A /* Main.storyboard */,
 				97E013C529775C360032216A /* load_Save_Iamges.entitlements */,
@@ -254,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				975B3270299B387F00C56AE0 /* myView.swift in Sources */,
 				975179D52989D1FB00545643 /* LSManger.swift in Sources */,
 				97E013BF29775C340032216A /* ViewController.swift in Sources */,
 				97E013BD29775C340032216A /* AppDelegate.swift in Sources */,
