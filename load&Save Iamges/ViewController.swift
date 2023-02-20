@@ -9,26 +9,38 @@ import Cocoa
 
 class ViewController: NSViewController {
     var myImage = NSImage()
-
-    //
-
+    var myImageData:NSImage? = nil
+    var LSMData:Array? = []
+    
     @IBOutlet weak var myView: myView!
     
     @IBOutlet weak var textOutlet: NSTextField!
-    
-    var myImageData:NSImage? = nil
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         textOutlet.stringValue = " hello"
         // Do any additional setup after loading the view.
+        LSMData?.append(textOutlet as Any)
+        LSMData?.append(myImageData as Any)
+    }
+    
+    @IBAction func SaveFileAction(_ sender: Any) {
+       // print(LSMData as Any)
+        let lsm = LSManger()
+        lsm.fileDataArray = LSMData
+        lsm.fileSaveData()
+    }
+    
+    @IBAction func LoadFileAction(_ sender: Any) {
+      //  print(LSMData as Any)
+        
     }
     
     @IBAction func loadTextAction(_ sender: Any) {
         let lsm = LSManger()
         lsm.fileLoadText()
         textOutlet.stringValue = String(lsm.fileTextData!)
-        
+        LSMData![0] = textOutlet.stringValue
     }
     
     @IBAction func saveTextAction(_ sender: Any) {
@@ -43,6 +55,7 @@ class ViewController: NSViewController {
         lsm.fileLoadImage()
         myView.myImage =  lsm.fileImageData!
         myView.displayImage()
+        LSMData![1] = lsm.fileImageData!
         //print(lsm.filePath as Any)
        // print("loadAction: \(String(describing: lsm.fileImageData))")
     }

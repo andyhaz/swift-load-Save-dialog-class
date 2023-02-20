@@ -13,6 +13,7 @@ class LSManger{
     var fileImageData:NSImage? = nil
     var fileTextData:String? = nil
     var fileNameData:String? = nil
+    var fileDataArray:Array? = []
     
     func fileSaveImage(imgData:NSImage){
       //  let image = NSImage()
@@ -51,6 +52,7 @@ class LSManger{
     
     func fileSaveData(){
         saveDialog(titleBar: "save file")
+        saveData(fileName:fileNameData!, arrayData: fileDataArray!, fileEtx: "grs")
     }
     
     func fileLoadData(){
@@ -138,6 +140,15 @@ class LSManger{
             
         }
         return textData
+    }
+    
+    public func saveData(fileName: String, arrayData: Array<Any>, fileEtx: String){
+        let fileURL = URL(fileURLWithPath: (filePath?.appending(fileEtx))!)
+        do {
+           // try fileDataArray.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+            // Save to file
+            (arrayData as NSArray).write(to: fileURL, atomically: true)
+        }
     }
     
     public func fileCreatDir(dirName:String){
