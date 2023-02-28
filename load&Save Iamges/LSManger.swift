@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import Foundation
 
 class LSManger{
     
@@ -52,17 +53,17 @@ class LSManger{
     
     func fileSaveData(){
         saveDialog(titleBar: "save file")
-        saveData(fileName:fileNameData!, arrayData: fileDataArray!, fileEtx: "grs")
+        saveData(fileName:filePath!, aryData: fileDataArray!, fileEtx: ".grs")
     }
     
     func fileLoadData(){
         loadDialog(titleBar: "load file")
+        fileDataArray = loadData(fileName: filePath!, fileEtx: ".grs")
     }
     
     func saveDialog(titleBar:String){
         let dialog = NSSavePanel();
         dialog.title = titleBar;
-        
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
             let result = dialog.url // Pathname of the file
             let nameResult = dialog.nameFieldStringValue
@@ -104,6 +105,12 @@ class LSManger{
         return retStr!
     }
     
+    func filePathUrl()->URL{
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
+        print("documentURL:\(documentsUrl)")
+        return documentsUrl
+    }
+    
     public func saveImageInDirectory(fileName: String, imageData: NSImage, fileEtx: String) {
        // let fileURL = documentsUrl.appendingPathComponent(newfileName)
         let fileURL = URL(fileURLWithPath: (filePath?.appending(fileEtx))!)
@@ -142,13 +149,41 @@ class LSManger{
         return textData
     }
     
-    public func saveData(fileName: String, arrayData: Array<Any>, fileEtx: String){
+    public func saveData(fileName: String, aryData:Array<Any>, fileEtx: String){
         let fileURL = URL(fileURLWithPath: (filePath?.appending(fileEtx))!)
+        print(fileURL)
         do {
-           // try fileDataArray.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-            // Save to file
-            (arrayData as NSArray).write(to: fileURL, atomically: true)
+            let data = try NSKeyedArchiver.archivedData(withRootObject: aryData, requiringSecureCoding: false)
+            try data.write(to: fileURL)
+            print("aryData:\(aryData)")
+
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
         }
+
+/*        do {
+            try joinedstring.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+        }*/
+    }
+    
+    public func loadData(fileName: String, fileEtx: String)->Array<Any>{
+        let fileURL = URL(fileURLWithPath:filePath!)
+        print(fileURL)
+        var ary:Array<Any> = []
+        
+        do {
+            let data = try Data(contentsOf: fileURL)
+            if let fileData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Any] {
+               // print("fileData\(fileData)")
+                ary.append(contentsOf: fileData)
+            }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+       // print("ary\(ary)")
+        return ary
     }
     
     public func fileCreatDir(dirName:String){
@@ -164,7 +199,6 @@ class LSManger{
             }
         }
     }
-    
 }
 
 extension NSImage {

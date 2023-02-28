@@ -20,8 +20,8 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         textOutlet.stringValue = " hello"
         // Do any additional setup after loading the view.
-        LSMData?.append(textOutlet as Any)
-        LSMData?.append(myImageData as Any)
+        LSMData?.append(textOutlet.stringValue)
+      //  LSMData?.append(myImageData ?? nil!)
     }
     
     @IBAction func SaveFileAction(_ sender: Any) {
@@ -33,7 +33,15 @@ class ViewController: NSViewController {
     
     @IBAction func LoadFileAction(_ sender: Any) {
       //  print(LSMData as Any)
-        
+        let lsm = LSManger()
+        lsm.fileLoadData()
+        LSMData!.append(contentsOf: lsm.fileDataArray!)//place data in narray
+        textOutlet.stringValue =  LSMData?[0] as! String
+
+
+      //  print(type(of: LSMData?[1]))
+        myView.myImage = LSMData![1] as! NSImage
+        myView.displayImage()
     }
     
     @IBAction func loadTextAction(_ sender: Any) {
@@ -51,11 +59,10 @@ class ViewController: NSViewController {
     
     @IBAction func loadAction(_ sender: Any) {
         let lsm = LSManger()
- 
         lsm.fileLoadImage()
         myView.myImage =  lsm.fileImageData!
         myView.displayImage()
-        LSMData![1] = lsm.fileImageData!
+        LSMData?.append(lsm.fileImageData!)
         //print(lsm.filePath as Any)
        // print("loadAction: \(String(describing: lsm.fileImageData))")
     }
@@ -67,7 +74,6 @@ class ViewController: NSViewController {
         print("save\(myImage)")
    // myurl:url?
        // saveImageInDocumentDirectory(image: myImage, fileName: "test.png")
-        
     }
     
     override var representedObject: Any? {
