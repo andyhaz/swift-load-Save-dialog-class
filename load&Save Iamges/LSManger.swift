@@ -10,23 +10,168 @@ import Foundation
 
 class LSManger{
     
-    var filePath:String? = nil
-    var fileImageData:NSImage? = nil
-    var fileTextData:String? = nil
-    var fileNameData:String? = nil
-    var fileDataArray:Array? = []
+    public func fileOpenDialog(titleBar:String)->String{
+        let dialog = NSOpenPanel();
+            dialog.title                  = titleBar;
+            dialog.showsResizeIndicator    = true;
+            dialog.showsHiddenFiles        = false;
+            dialog.canChooseDirectories    = true;
+            dialog.canCreateDirectories    = true;
+            dialog.allowsMultipleSelection = false;
+        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+            let result = dialog.url // Pathname of the file
+                if (result != nil) {
+                   return result!.path
+                }
+            } else {
+                // User clicked on "Cancel"
+                return ""
+            }
+        return " "
+    }
+   
+    public func fileLoadData(filePath:String, fileName: String, fileEtx: String)->Array<Any>{
+        let fileURL = URL(fileURLWithPath:filePath)
+        print(fileURL)
+        var ary:Array<Any> = []
+        
+        do {
+            let data = try Data(contentsOf: fileURL)
+            if let fileData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [Any] {
+               // print("fileData\(fileData)")
+                ary.append(contentsOf: fileData)
+            }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+       // print("ary\(ary)")
+        return ary
+    }
+//save
+    public func fileSaveDialog(filePath:String, titleBar:String){
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
+        let dialog = NSSavePanel();
+        dialog.title = titleBar;
+        dialog.showsResizeIndicator    = true;
+        dialog.showsHiddenFiles        = false;
+        dialog.canCreateDirectories    = true;
+
+        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+            let result = dialog.url // Pathname of the file
+            let nameResult = dialog.nameFieldStringValue
+            //print("name:\(nameResult)")
+            if (result != nil) {
+               //    fileNameData = nameResult
+                //   filePath = result!.path
+                    print("filepath:\(filePath)")
+                }
+            } else {
+                // User clicked on "Cancel"
+                return
+            }
+    }
+    //
+    public func fileSaveTextInDirectory(filePath:String, fileName: String, textData: String, fileEtx: String) {
+       // let fileURL = documentsUrl.appendingPathComponent(newfileName)
+        let fileURL = URL(fileURLWithPath: (filePath.appending(fileEtx)))
+        print("fileurl:\(fileURL)")
+        do {
+            try textData.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+        }
+    }
+    //
+    public func fileSaveImageInDirectory(filePath:String, imageData:NSImage, fileEtx:String) {
+       // let fileURL = documentsUrl.appendingPathComponent(newfileName)
+        let fileURL = URL(fileURLWithPath: (filePath.appending(fileEtx)))
+       // print("fileurl:\(fileURL)")
+            if let imageData = imageData.pngData {
+                do {
+                    try imageData.write(to:fileURL, options: .atomic)
+                } catch {
+                   print(error)
+                }
+            }
+    }//
     
+    public func fileSaveData(filePath:String, fileName: String, aryData:Array<Any>, fileEtx: String){
+        let fileURL = URL(fileURLWithPath: (filePath.appending(fileEtx)))
+        print(fileURL)
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: aryData, requiringSecureCoding: false)
+            try data.write(to: fileURL)
+            print("aryData:\(aryData)")
+
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+    }
+    
+    public func fileCreatDirectory(dirName:String){
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        let docURL = URL(string: documentsDirectory)!
+        let dataPath = docURL.appendingPathComponent(dirName)
+        if !FileManager.default.fileExists(atPath: dataPath.path) {
+            do {
+                try FileManager.default.createDirectory(atPath: dataPath.path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func fileUrlToString()->String {
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
+        print("documentURL:\(documentsUrl)")
+        let retStr = try? String(contentsOf: documentsUrl)
+        return retStr!
+    }
+    
+    func filePathUrl()->URL{
+        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
+        print("documentURL:\(documentsUrl)")
+        return documentsUrl
+    }
+}
+
+extension NSImage {
+    var pngData: Data? {
+        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation)
+        else { return nil }
+        return bitmapImage.representation(using: .png, properties: [:])
+    }
+    
+    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
+        do {
+            try pngData?.write(to: url, options: options)
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+}
+
+//
+
+    //var filePath:String? = nil
+    //var fileImageData:NSImage? = nil
+    //var fileTextData:String? = nil
+    //var fileNameData:String? = nil
+    //var fileDataArray:Array? = []
+    
+    
+//delete the botom
+    /*
     func fileSaveImage(imgData:NSImage){
       //  let image = NSImage()
         saveDialog(titleBar: "save image")
         fileImageData = imgData
         if filePath != nil {
-           // let fileNameExt =
-           // let image = fileImageData
-           // var newfileName = filePath?.appending(".png")
             saveImageInDirectory(fileName: fileNameData!, imageData: imgData, fileEtx: "png")
-            print("save image")
-           // self.scaleImage(image: image!)
+          //  print("save image")
         } else {
             print(fileImageData as Any)
         }
@@ -38,7 +183,23 @@ class LSManger{
         fileImageData = NSImage(contentsOfFile: filePath!)!
         print("load image:\(String(describing: fileImageData))")
     }
-    
+     func saveDialog(titleBar:String){
+         let dialog = NSSavePanel();
+         dialog.title = titleBar;
+         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+             let result = dialog.url // Pathname of the file
+             let nameResult = dialog.nameFieldStringValue
+             //print("name:\(nameResult)")
+                 if (result != nil) {
+                    fileNameData = nameResult
+                    filePath = result!.path
+                    print("filepath:\(filePath!)")
+                 }
+             } else {
+                 // User clicked on "Cancel"
+                 return
+             }
+     }//
     func fileSaveText(textData:String){
         saveDialog(titleBar: "save text")
         saveTextInDirectory(fileName: fileNameData!, textData: textData, fileEtx: ".txt")
@@ -200,22 +361,4 @@ class LSManger{
         }
     }
 }
-
-extension NSImage {
-    var pngData: Data? {
-        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation)
-        else { return nil }
-        return bitmapImage.representation(using: .png, properties: [:])
-    }
-    
-    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
-        do {
-            try pngData?.write(to: url, options: options)
-            return true
-        } catch {
-            print(error)
-            return false
-        }
-    }
-}
-
+     */
