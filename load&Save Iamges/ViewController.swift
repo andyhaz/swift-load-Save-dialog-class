@@ -27,15 +27,15 @@ class ViewController: NSViewController {
     @IBAction func SaveFileAction(_ sender: Any) {
        // print(LSMData as Any)
         let lsm = LSManger()
-        lsm.fileDataArray = LSMData
-        lsm.fileSaveData()
+//        lsm.fileSaveData()
     }
     
     @IBAction func LoadFileAction(_ sender: Any) {
       //  print(LSMData as Any)
         let lsm = LSManger()
-        lsm.fileLoadData()
-        LSMData!.append(contentsOf: lsm.fileDataArray!)//place data in narray
+        
+     //   lsm.fileLoadData()
+     //   LSMData!.append(contentsOf: lsm.fileDataArray!)//place data in narray
         textOutlet.stringValue =  LSMData?[0] as! String
 
 
@@ -46,23 +46,25 @@ class ViewController: NSViewController {
     
     @IBAction func loadTextAction(_ sender: Any) {
         let lsm = LSManger()
-        lsm.fileLoadText()
-        textOutlet.stringValue = String(lsm.fileTextData!)
-        LSMData![0] = textOutlet.stringValue
+        let path = lsm.fileDialog(titleBar: "load text")
+        print(path)
+       // lsm.fileLoadText()
+        textOutlet.stringValue = lsm.fileLoadTextInDirectory(path: path)
+      //  LSMData![0] = textOutlet.stringValue
     }
     
     @IBAction func saveTextAction(_ sender: Any) {
         let lsm = LSManger()
-        let txt:String = textOutlet.stringValue
-        lsm.fileSaveText(textData:txt)
+       // let txt:String = textOutlet.stringValue
+       // lsm.fileSaveText(textData:txt)
     }
     
     @IBAction func loadAction(_ sender: Any) {
         let lsm = LSManger()
-        lsm.fileLoadImage()
-        myView.myImage =  lsm.fileImageData!
+       // lsm.fileLoadImage()
+       // myView.myImage =  lsm.fileImageData!
         myView.displayImage()
-        LSMData?.append(lsm.fileImageData!)
+       // LSMData?.append(lsm.fileImageData!)
         //print(lsm.filePath as Any)
        // print("loadAction: \(String(describing: lsm.fileImageData))")
     }
@@ -70,7 +72,7 @@ class ViewController: NSViewController {
     @IBAction func saveAction(_ sender: Any) {
         let lsm = LSManger()
       //  lsm.fileSaveImage(imgData: myImageData!)
-        print(lsm.filePath as Any)
+        //print(lsm.filePath as Any)
         print("save\(myImage)")
    // myurl:url?
        // saveImageInDocumentDirectory(image: myImage, fileName: "test.png")

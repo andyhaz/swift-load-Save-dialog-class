@@ -9,8 +9,7 @@ import Cocoa
 import Foundation
 
 class LSManger{
-    
-    public func fileOpenDialog(titleBar:String)->String{
+    public func fileDialog(titleBar:String)->String{
         let dialog = NSOpenPanel();
             dialog.title                  = titleBar;
             dialog.showsResizeIndicator    = true;
@@ -29,7 +28,24 @@ class LSManger{
             }
         return " "
     }
-   
+    
+    public func fileLoadTextInDirectory(path:String)->String{
+        var textData:String = ""
+        
+        do{
+            textData = try String(contentsOfFile:path, encoding: .utf8)
+        } catch {
+            
+        }
+        return textData
+    }
+    
+    func fileLoadImage(filePath:String)->NSImage{
+        //load image
+        return NSImage(contentsOfFile: filePath)!
+      //  print("load image:\(String(describing: fileImageData))")
+    }
+    
     public func fileLoadData(filePath:String, fileName: String, fileEtx: String)->Array<Any>{
         let fileURL = URL(fileURLWithPath:filePath)
         print(fileURL)
@@ -48,29 +64,6 @@ class LSManger{
         return ary
     }
 //save
-    public func fileSaveDialog(filePath:String, titleBar:String){
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
-        let dialog = NSSavePanel();
-        dialog.title = titleBar;
-        dialog.showsResizeIndicator    = true;
-        dialog.showsHiddenFiles        = false;
-        dialog.canCreateDirectories    = true;
-
-        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            let result = dialog.url // Pathname of the file
-            let nameResult = dialog.nameFieldStringValue
-            //print("name:\(nameResult)")
-            if (result != nil) {
-               //    fileNameData = nameResult
-                //   filePath = result!.path
-                    print("filepath:\(filePath)")
-                }
-            } else {
-                // User clicked on "Cancel"
-                return
-            }
-    }
-    //
     public func fileSaveTextInDirectory(filePath:String, fileName: String, textData: String, fileEtx: String) {
        // let fileURL = documentsUrl.appendingPathComponent(newfileName)
         let fileURL = URL(fileURLWithPath: (filePath.appending(fileEtx)))
@@ -122,14 +115,14 @@ class LSManger{
         }
     }
     
-    func fileUrlToString()->String {
+    public func fileUrlToString()->String {
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
         print("documentURL:\(documentsUrl)")
         let retStr = try? String(contentsOf: documentsUrl)
         return retStr!
     }
     
-    func filePathUrl()->URL{
+    public func filePathUrl()->URL{
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
         print("documentURL:\(documentsUrl)")
         return documentsUrl
@@ -153,9 +146,7 @@ extension NSImage {
         }
     }
 }
-
 //
-
     //var filePath:String? = nil
     //var fileImageData:NSImage? = nil
     //var fileTextData:String? = nil
