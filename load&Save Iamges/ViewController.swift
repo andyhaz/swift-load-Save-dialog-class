@@ -46,7 +46,7 @@ class ViewController: NSViewController {
     
     @IBAction func loadTextAction(_ sender: Any) {
         let lsm = LSManger()
-        let path = lsm.fileDialog(titleBar: "load text")
+        let path = lsm.fileOpenDialog(titleBar: "load text")
         print(path)
        // lsm.fileLoadText()
         textOutlet.stringValue = lsm.fileLoadTextInDirectory(path: path)

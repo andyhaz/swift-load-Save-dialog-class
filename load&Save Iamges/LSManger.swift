@@ -9,7 +9,26 @@ import Cocoa
 import Foundation
 
 class LSManger{
-    public func fileDialog(titleBar:String)->String{
+    func fileSaveDialog(titleBar:String)->String{
+        let dialog = NSSavePanel();
+      //  let fileNameData:String
+        dialog.title = titleBar;
+        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+            let result = dialog.url // Pathname of the file
+           // let nameResult = dialog.nameFieldStringValue
+            //print("name:\(nameResult)")
+                if (result != nil) {
+                   //fileNameData = "\(result!.path)\(nameResult)"
+                   // print("fileNameData:\(fileNameData)")
+                   return result!.path
+                }
+            } else {
+                // User clicked on "Cancel"
+            }
+        return ""
+    }//
+    //
+    public func fileOpenDialog(titleBar:String)->String{
         let dialog = NSOpenPanel();
             dialog.title                  = titleBar;
             dialog.showsResizeIndicator    = true;
