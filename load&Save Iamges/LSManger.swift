@@ -95,16 +95,23 @@ class LSManger{
     }
     //
     public func fileSaveImageInDirectory(filePath:String, imageData:NSImage, fileEtx:String) {
-       // let fileURL = documentsUrl.appendingPathComponent(newfileName)
         let fileURL = URL(fileURLWithPath: (filePath.appending(fileEtx)))
-       // print("fileurl:\(fileURL)")
-            if let imageData = imageData.pngData {
-                do {
-                    try imageData.write(to:fileURL, options: .atomic)
-                } catch {
-                   print(error)
-                }
-            }
+        
+        guard
+            let cgImage = imageData.cgImage(forProposedRect: nil, context: nil, hints: nil)
+            else { return } // TODO: handle error
+        let newRep = NSBitmapImageRep(cgImage: cgImage)
+        newRep.size = imageData.size // if you want the same size
+        print("newRep:\(newRep.size)\(imageData.size)")
+        guard
+            let pngData = newRep.representation(using: .png, properties: [:])
+            else { return } // TODO: handle error
+        do {
+            try pngData.write(to: fileURL)
+        }
+        catch {
+            print("error saving: \(error)")
+        }
     }//
     
     public func fileSaveData(filePath:String, fileName: String, aryData:Array<Any>, fileEtx: String){
@@ -145,24 +152,6 @@ class LSManger{
         let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
         print("documentURL:\(documentsUrl)")
         return documentsUrl
-    }
-}
-
-extension NSImage {
-    var pngData: Data? {
-        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation)
-        else { return nil }
-        return bitmapImage.representation(using: .png, properties: [:])
-    }
-    
-    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
-        do {
-            try pngData?.write(to: url, options: options)
-            return true
-        } catch {
-            print(error)
-            return false
-        }
     }
 }
 //
