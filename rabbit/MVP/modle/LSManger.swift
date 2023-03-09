@@ -94,7 +94,7 @@ class LSManger{
         }
     }
     //
-    func fileSaveToDiskImage(filePath:String,imageDataL:Data) {
+    func fileSaveToDiskImage(filePath:String,imageData:Data) {
         let fileURL = URL(fileURLWithPath:filePath)
 
         do {
