@@ -26,6 +26,7 @@ class MyView: NSView {
        // loadImageView(fileName:"grsLogo.png", FileWidth: 100, fileHeight: 100)
     }
     
+    
     func loadImageView(fileName:String,FileWidth:Float,fileHeight:Float) {
         /* Create an image view */
         if let Image = NSImage(contentsOfFile: fileName){

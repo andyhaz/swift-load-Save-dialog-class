@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9754CC3D29BA6B3E00D375D5 /* processImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9754CC3C29BA6B3E00D375D5 /* processImage.swift */; };
+		976941B129B1C4D900FA4F77 /* LSManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976941B029B1C4D900FA4F77 /* LSManger.swift */; };
+		976941B329B7B4BE00FA4F77 /* dataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976941B229B7B4BE00FA4F77 /* dataManager.swift */; };
 		97DAAD602949453900E51AD5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAAD5F2949453900E51AD5 /* AppDelegate.swift */; };
 		97DAAD622949453900E51AD5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DAAD612949453900E51AD5 /* ViewController.swift */; };
 		97DAAD642949453A00E51AD5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97DAAD632949453A00E51AD5 /* Assets.xcassets */; };
@@ -37,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9754CC3C29BA6B3E00D375D5 /* processImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = processImage.swift; sourceTree = "<group>"; };
+		976941B029B1C4D900FA4F77 /* LSManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSManger.swift; sourceTree = "<group>"; };
+		976941B229B7B4BE00FA4F77 /* dataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataManager.swift; sourceTree = "<group>"; };
 		97DAAD5C2949453900E51AD5 /* rabbit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rabbit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97DAAD5F2949453900E51AD5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97DAAD612949453900E51AD5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				97DAAD612949453900E51AD5 /* ViewController.swift */,
-				97DAAD8A2949455C00E51AD5 /* MyView.swift */,
 				97DE73B2295CD6AE00A558F3 /* myTableView.swift */,
 			);
 			path = view;
@@ -141,6 +146,7 @@
 		97E013AC297730D50032216A /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				97DAAD8A2949455C00E51AD5 /* MyView.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -148,6 +154,9 @@
 		97E013AF29773DFE0032216A /* modle */ = {
 			isa = PBXGroup;
 			children = (
+				9754CC3C29BA6B3E00D375D5 /* processImage.swift */,
+				976941B029B1C4D900FA4F77 /* LSManger.swift */,
+				976941B229B7B4BE00FA4F77 /* dataManager.swift */,
 			);
 			path = modle;
 			sourceTree = "<group>";
@@ -293,7 +302,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				976941B129B1C4D900FA4F77 /* LSManger.swift in Sources */,
+				976941B329B7B4BE00FA4F77 /* dataManager.swift in Sources */,
 				97DAAD8B2949455C00E51AD5 /* MyView.swift in Sources */,
+				9754CC3D29BA6B3E00D375D5 /* processImage.swift in Sources */,
 				97DE73B3295CD6AE00A558F3 /* myTableView.swift in Sources */,
 				97DAAD622949453900E51AD5 /* ViewController.swift in Sources */,
 				97DAAD602949453900E51AD5 /* AppDelegate.swift in Sources */,
@@ -463,7 +475,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = rabbit/rabbit.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -492,7 +504,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = rabbit/rabbit.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

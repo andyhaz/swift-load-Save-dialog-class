@@ -11,47 +11,41 @@ protocol tableDelegate:AnyObject{
     func tableEvent(cellId:Int,CheckData:Bool)
 }
 
-struct screenSizeData {
-    var seleCheckBox:Bool
-    var height:Int
-    var width:Int
-    var tableDisplay:String
-}
-
 class ViewController:NSViewController,NSTableViewDataSource,NSTableViewDelegate,tableDelegate {
     
+   // var imageData:NSImage? = nil
     var filename_field:String = ""
+    var lsm = LSManger()
+    //
+    let dm = dataManager()
+    //create table data
+    var sizeData: [screenSizeData] = []
+    var rowsWhichAreChecked = [NSIndexPath]()
+    var selectRow = 0
 
     @IBOutlet weak var myView: MyView!
   
     @IBOutlet var tableView: NSTableView!
     
-
     @IBAction func openImageAction(_ sender: Any) {
-        openDialog()
+       // let image = myView.myImage
+        myView.myImage = lsm.fileLoadImage(filePath:lsm.fileOpenDialog(titleBar: "open image"))
+      //  myView.myImage =  myView.crop(nsImage: myView.myImage, rect: NSMakeRect(0, 0, CGFloat(sizeData[0].width), CGFloat(sizeData[0].height)))
+        myView.displayImage(imageWidth:Float(sizeData[0].width), imageHeight: Float(sizeData[0].height))
     }
     
     @IBAction func saveImageAction(_ sender: Any) {
-        saveDialog()
+        let ls = LSManger()
+        let savePath = ls.fileSaveDialog(titleBar: "Save image")
+        scaleImage(image:myView.myImage, imagePath: savePath)
+        print("save")
     }
-
-    //create table data
-    var tempData: [screenSizeData] = []
-    var rowsWhichAreChecked = [NSIndexPath]()
-    var selectRow = 0
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //
-        let ss1 = screenSizeData(seleCheckBox: true, height: 100, width: 100, tableDisplay: "100X100")
-        let ss2 = screenSizeData(seleCheckBox: true, height: 200, width: 200, tableDisplay: "200X200")
-        let ss3 = screenSizeData(seleCheckBox: true, height: 300, width: 300, tableDisplay: "300X300")
-        let ss4 = screenSizeData(seleCheckBox: true, height: 400, width: 400, tableDisplay: "400X400")
-        
-        tempData.append(ss1)
-        tempData.append(ss2)
-        tempData.append(ss3)
-        tempData.append(ss4)
+        dm.defaultData()
+        sizeData.append(contentsOf: dm.tempData)
         
         view.wantsLayer = true
         // Set the initial background color.
@@ -65,12 +59,12 @@ class ViewController:NSViewController,NSTableViewDataSource,NSTableViewDelegate,
     }
  
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return (tempData.count)
+        return (sizeData.count)
     }
       
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
           
-        let cellData = tempData[row]
+        let cellData = sizeData[row]
         guard let userCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "myTableView"), owner: self) as? myTableView else { return nil }
           
         userCell.configer(title:cellData.tableDisplay, id: row)
@@ -82,100 +76,48 @@ class ViewController:NSViewController,NSTableViewDataSource,NSTableViewDelegate,
     
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         selectRow = row
-        print(tempData[selectRow])
+        print(sizeData[selectRow])
+      //  print(myView as Any)
         
        updateView()
         
         return true
     }
+
+    func tableEvent(cellId:Int,CheckData:Bool){
+        //  print("tableEvent:\(cellId)")
+        sizeData[cellId].seleCheckBox = CheckData
+      //  print("tempdata:\(tempData[cellId])")
+      }
     //
    func updateView(){
         myView.clearView()
-        myView.setFrameSize(NSSize(width:tempData[selectRow].height, height: tempData[selectRow].height))
+        myView.setFrameSize(NSSize(width:sizeData[selectRow].width, height: sizeData[selectRow].height))
         
-        myView.loadImageView(fileName:filename_field, FileWidth: Float(tempData[selectRow].width), fileHeight: Float(tempData[selectRow].height))
-        
-        myView.changeBackgroundColor(color: .clear)
-    }
-    //
-    func tableEvent(cellId:Int,CheckData:Bool){
-        //  print("tableEvent:\(cellId)")
-        tempData[cellId].seleCheckBox = CheckData
-      //  print("tempdata:\(tempData[cellId])")
-      }
-    
-    func openDialog(){
-        let dialog = NSOpenPanel();
-            dialog.title                   = "Choose a image file";
-            dialog.showsResizeIndicator    = true;
-            dialog.showsHiddenFiles        = false;
-            dialog.canChooseDirectories    = true;
-            dialog.canCreateDirectories    = true;
-            dialog.allowsMultipleSelection = false;
-         //   dialog.allowedFileTypes        = ["png"];
-        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            let result = dialog.url // Pathname of the file
-                if (result != nil) {
-                    let path = result!.path
-                    filename_field = path
-                  //  print(filename_field)
-                    //load image
-                    updateView()
-                }
-            } else {
-                // User clicked on "Cancel"
-                return
-            }
-    }//clode
-    
-    func saveDialog () {
-        let image = NSImage()
-        let panel = NSSavePanel()
-       // panel.allowsMultipleSelection = false
-      //  panel.canChooseFiles = true
-      //  panel.canChooseDirectories = true
-        panel.runModal()
-       // panel.allowedFileTypes = ["png", "jpeg", "jpg"]
-        let chosenFile = panel.url
-        if chosenFile != nil {
-          //  let image = NSImage(contentsOf: chosenFile!)
-            let image = myView.myImage
-            saveImageInDocumentDirectory(image:image, fileName: "test.png")
-           // self.scaleImage(image: image!)
-        }
+       myView.displayImage(imageWidth: Float(sizeData[selectRow].width), imageHeight: Float(sizeData[selectRow].height))
+       myView.changeBackgroundColor(color: .red)
     }
     
-    public func saveImageInDocumentDirectory(image: NSImage, fileName: String) {
-            
-            let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!;
-            let fileURL = documentsUrl.appendingPathComponent(fileName)
-           // let imageData = image!.pngData()! as NSData
-            if let imageData = image.pngData {
-                try? imageData.write(to: fileURL, options: .atomic)
-              //  return fileURL
-                print(fileURL)
-            }
-           // return nil
-        }
-    
-    func scaleImage (image:NSImage){
-     
+    func scaleImage (image:NSImage, imagePath:String){
+        var tempName:String
+       // var newImage:NSImage
+       // let ls = LSManger()
+        for row in sizeData {
+          //print(row)
+            if(row.seleCheckBox == true){
+                myView.clearView()
+                // resize image
+                myView.setFrameSize(NSSize(width:row.width, height:row.height))
+                myView.displayImage(imageWidth:Float(row.width), imageHeight:Float(row.height))
+                //rename file name
+                tempName = "\(imagePath)\(row.tableDisplay)".appending(".png")
+                
+                //save image
+                print("newImage:\(myView.myImage.size)")
+                myView.changeBackgroundColor(color: .red)
+                myView.fileSaveToDiskImage(filePath: tempName)
+              //  ls.fileSaveImageInDirectory(filePath:tempName, imageData:myView.myImage, fileEtx: ".png")
+            }//end if
+        }//end loop
     }
-}
-
-extension NSImage {
-    var pngData: Data? {
-        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation)
-        else { return nil }
-        return bitmapImage.representation(using: .png, properties: [:])
-    }
-    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
-        do {
-            try pngData?.write(to: url, options: options)
-            return true
-        } catch {
-            print(error)
-            return false
-        }
-    }
-}
+}//end class
