@@ -31,13 +31,16 @@ class ViewController:NSViewController,NSTableViewDataSource,NSTableViewDelegate,
        // let image = myView.myImage
         myView.myImage = lsm.fileLoadImage(filePath:lsm.fileOpenDialog(titleBar: "open image"))
       //  myView.myImage =  myView.crop(nsImage: myView.myImage, rect: NSMakeRect(0, 0, CGFloat(sizeData[0].width), CGFloat(sizeData[0].height)))
-        myView.displayImage(imageWidth:Float(sizeData[0].width), imageHeight: Float(sizeData[0].height))
+       // myView.displayImage(imageWidth:Float(sizeData.last!.width), imageHeight: Float(sizeData.last!.height))
+        myView.displayImage(imageWidth:Float(sizeData[1].width),imageHeight:Float(sizeData[1].height))
+
     }
     
     @IBAction func saveImageAction(_ sender: Any) {
         let ls = LSManger()
         let savePath = ls.fileSaveDialog(titleBar: "Save image")
-        scaleImage(image:myView.myImage, imagePath: savePath)
+        batchImagea(savePath: savePath)
+
         print("save")
     }
     
@@ -46,7 +49,6 @@ class ViewController:NSViewController,NSTableViewDataSource,NSTableViewDelegate,
         //
         dm.defaultData()
         sizeData.append(contentsOf: dm.tempData)
-        
         view.wantsLayer = true
         // Set the initial background color.
         // By using the correct class name (MyView) above, you can now
@@ -93,31 +95,20 @@ class ViewController:NSViewController,NSTableViewDataSource,NSTableViewDelegate,
    func updateView(){
         myView.clearView()
         myView.setFrameSize(NSSize(width:sizeData[selectRow].width, height: sizeData[selectRow].height))
-        
-       myView.displayImage(imageWidth: Float(sizeData[selectRow].width), imageHeight: Float(sizeData[selectRow].height))
-       myView.changeBackgroundColor(color: .red)
+        myView.displayImage(imageWidth: Float(sizeData[selectRow].width), imageHeight: Float(sizeData[selectRow].height))
+        myView.changeBackgroundColor(color: .clear)
     }
     
-    func scaleImage (image:NSImage, imagePath:String){
+    func batchImagea (savePath:String){
         var tempName:String
-       // var newImage:NSImage
-       // let ls = LSManger()
         for row in sizeData {
-          //print(row)
             if(row.seleCheckBox == true){
+                print("row:\(row)")
                 myView.clearView()
-                // resize image
-                myView.setFrameSize(NSSize(width:row.width, height:row.height))
-                myView.displayImage(imageWidth:Float(row.width), imageHeight:Float(row.height))
-                //rename file name
-                tempName = "\(imagePath)\(row.tableDisplay)".appending(".png")
-                
-                //save image
-                print("newImage:\(myView.myImage.size)")
-                myView.changeBackgroundColor(color: .red)
-                myView.fileSaveToDiskImage(filePath: tempName)
-              //  ls.fileSaveImageInDirectory(filePath:tempName, imageData:myView.myImage, fileEtx: ".png")
-            }//end if
+                tempName = savePath.appending(row.tableDisplay).appending(".png")
+                myView.resizeImage(imageData: myView.myImage, width:row.width, height: row.height)
+                myView.fileSaveDiskImage(filePath: tempName)
+            }
         }//end loop
     }
 }//end class

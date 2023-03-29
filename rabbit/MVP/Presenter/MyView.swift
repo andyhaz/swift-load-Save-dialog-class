@@ -31,13 +31,17 @@ class MyView: NSView {
         return NSImage(cgImage: cgImage, size: size)
     }
     
-    func fileSaveToDiskImage(filePath:String) {
+    
+    func fileSaveDiskImage(filePath:String) {
+        
         let rep: NSBitmapImageRep! = self.bitmapImageRepForCachingDisplay(in: self.bounds)
+        rep.pixelsWide = Int(rep.size.width)
+        rep.pixelsHigh = Int(rep.size.height)
         self.cacheDisplay(in: self.bounds, to: rep!)
         let imageData: Data! = rep!.representation(using: NSBitmapImageRep.FileType.png, properties: [:])
-      //  let fileManager = FileManager.default
-      //  let desktopPath = try! fileManager.url(for: .desktopDirectory, in: .allDomainsMask, appropriateFor: nil, create: true)
-      //  let filePath = desktopPath.appendingPathComponent("test.png")
+        
+        print("imasge Data: \(String(describing: rep!))")
+
         let fileURL = URL(fileURLWithPath:filePath)
 
         do {
@@ -48,24 +52,29 @@ class MyView: NSView {
         }
     }
     
-    func resizeImage(imageWidth:Float,imageHeight:Float){
+    func resizeImage(imageData:NSImage,width:Int,height:Int){
+        print("image width\(imageData.size.width)")
+        print("image height:\(imageData.size.width)")
+        print("width:\(width)")
+        print("height:\(height)")
+        print("imagedata\(imageData)")
+
         let myImageView:NSImageView = NSImageView()
+      //  self.changeBackgroundColor(color: .green)
+        self.setFrameSize(NSSize(width: width, height: height))
+        
+        imageData.size.width = CGFloat(width)
+        imageData.size.height = CGFloat(height)
+        myImageView.frame.size.width = CGFloat(width)//Image.size.width
+        myImageView.frame.size.height = CGFloat(height)//Image.size.height
+        myImageView.image = imageData
+        print("imagedata end:\(imageData)")
 
-        myImage.size.width = CGFloat(imageWidth)//Image.size.width
-        myImage.size.height = CGFloat(imageHeight)//Image.size.height
-        myImageView.frame.size.width = CGFloat(imageWidth)//Image.size.width
-        myImageView.frame.size.height = CGFloat(imageHeight)//Image.size.height
+        self.addSubview(myImageView)
         
-        myImageView.image = myImage
-        myImage = myImageView.image!
-        
-        let rep: NSBitmapImageRep! = self.bitmapImageRepForCachingDisplay(in: self.bounds)
-        self.cacheDisplay(in: self.bounds, to: rep!)
-    
-       // needsDisplay = true
-        print("draw myImage:\(myImage)")
+      //  needsDisplay = true
     }
-
+  
     func displayImage(imageWidth:Float,imageHeight:Float){
         let myImageView:NSImageView = NSImageView()
         myImageView.frame.size.width = CGFloat(imageWidth)//Image.size.width
@@ -89,6 +98,8 @@ class MyView: NSView {
             let myImageView:NSImageView = NSImageView()
             myImageView.frame.size.width = CGFloat(FileWidth)//Image.size.width
             myImageView.frame.size.height = CGFloat(fileHeight)//Image.size.height
+            myImageView.frame.origin.x = 100
+            myImageView.frame.origin.y = 10
             myImageView.image = Image
             myImage = myImageView.image!
           //  print("image:\(myImage.size)")

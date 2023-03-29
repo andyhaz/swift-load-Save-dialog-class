@@ -231,7 +231,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="zeO-gT-hgM">
-                                    <rect key="frame" x="1" y="334" width="215" height="15"/>
+                                    <rect key="frame" x="1" y="334" width="198" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="xUJ-X8-20B">
@@ -258,11 +258,11 @@
                                         </view>
                                     </subviews>
                                 </clipView>
-                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.97997496871088863" horizontal="YES" id="YYZ-7Q-XWn">
+                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="YYZ-7Q-XWn">
                                     <rect key="frame" x="1" y="184" width="225" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.0011890606420927874" horizontal="NO" id="A9j-OI-82c">
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="A9j-OI-82c">
                                     <rect key="frame" x="226" y="1" width="15" height="183"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
